@@ -25,7 +25,8 @@ export default function Navbar() {
         <div className={styles.navLinks}>
           <Link to="/citizen" className={styles.link}>{t('navCitizen')}</Link>
           <Link to="/citizen/enumerate" className={styles.link}>Self-Enumeration</Link>
-          <Link to="/citizen/checklist" className={styles.link}>Checklist Scanner</Link>
+          <Link to="/citizen/checklist" className={styles.link}>Checklist</Link>
+          <Link to="/citizen/quiz" className={styles.link}>Safety Quiz 🏆</Link>
           <Link to="/citizen/verify" className={styles.link}>Verify Claims</Link>
           <Link to="/enumerator" className={styles.link}>{t('navField')}</Link>
           <Link to="/enumerator/planner" className={styles.link}>Route Planner</Link>
@@ -34,46 +35,44 @@ export default function Navbar() {
         </div>
 
         <div className={styles.actions}>
-          {/* OTP Login Button */}
-          <Link to="/login" className="btn-secondary" style={{ padding: '0.4rem 0.9rem', fontSize: '0.85rem' }}>
-            <LogIn size={15} /> Login OTP
+          <Link to="/login" className="btn-secondary" style={{ padding: '0.3rem 0.65rem', fontSize: '0.78rem' }}>
+            <LogIn size={13} /> Login
           </Link>
 
-          {/* Notifications */}
           <div style={{ position: 'relative' }}>
             <button 
               onClick={() => setShowNotifications(!showNotifications)}
               style={{
-                position: 'relative', padding: '0.5rem', borderRadius: '50%',
+                position: 'relative', padding: '0.4rem', borderRadius: '50%',
                 backgroundColor: 'rgba(255,255,255,0.8)', border: '1px solid var(--border-color)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}
               title="Notifications"
             >
-              <Bell size={20} color="var(--text-main)" />
+              <Bell size={16} color="var(--text-main)" />
               <span style={{
-                position: 'absolute', top: '-2px', right: '-2px', width: '10px', height: '10px',
+                position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px',
                 backgroundColor: '#ef4444', borderRadius: '50%', border: '2px solid white'
               }} />
             </button>
 
             {showNotifications && (
               <div style={{
-                position: 'absolute', right: 0, top: '45px', width: '300px',
+                position: 'absolute', right: 0, top: '40px', width: '280px',
                 backgroundColor: 'white', borderRadius: 'var(--radius-md)',
                 boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border-color)',
                 zIndex: 100, overflow: 'hidden'
               }}>
-                <div className="flex justify-between items-center" style={{ padding: '0.75rem 1rem', borderBottom: '1px solid var(--border-color)', backgroundColor: 'var(--bg-main)' }}>
-                  <strong style={{ fontSize: '0.9rem' }}>Notifications</strong>
-                  <button onClick={() => setShowNotifications(false)}><X size={16} /></button>
+                <div className="flex justify-between items-center" style={{ padding: '0.6rem 0.85rem', borderBottom: '1px solid var(--border-color)', backgroundColor: 'var(--bg-main)' }}>
+                  <strong style={{ fontSize: '0.85rem' }}>Notifications</strong>
+                  <button onClick={() => setShowNotifications(false)}><X size={14} /></button>
                 </div>
                 <div>
                   {notifications.map(n => (
-                    <div key={n.id} style={{ padding: '0.75rem 1rem', borderBottom: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
+                    <div key={n.id} style={{ padding: '0.6rem 0.85rem', borderBottom: '1px solid var(--border-color)', fontSize: '0.8rem' }}>
                       <div style={{ fontWeight: '600', color: 'var(--primary-color)' }}>{n.title}</div>
                       <div style={{ color: 'var(--text-muted)' }}>{n.text}</div>
-                      <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '4px' }}>{n.time}</div>
+                      <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '2px' }}>{n.time}</div>
                     </div>
                   ))}
                 </div>
