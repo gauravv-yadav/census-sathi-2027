@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle, Award, LogIn, ArrowRight } from 'lucide-react';
+import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle, Award, LogIn, UserPlus, ArrowRight } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import { t } from '../../utils/i18n';
 
 export default function LandingPage() {
+  const [authMode, setAuthMode] = useState('signin'); // 'signin' or 'signup'
   const [identifier, setIdentifier] = useState('');
+  const [fullName, setFullName] = useState('');
   const [step, setStep] = useState(1);
   const [otp, setOtp] = useState(['', '', '', '']);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -14,6 +16,7 @@ export default function LandingPage() {
   const handleSendOtp = (e) => {
     e.preventDefault();
     if (!identifier.trim()) return;
+    if (authMode === 'signup' && !fullName.trim()) return;
     setStep(2);
   };
 
@@ -22,7 +25,7 @@ export default function LandingPage() {
     setIsVerifying(true);
     setTimeout(() => {
       setIsVerifying(false);
-      alert("Authenticated!");
+      alert(authMode === 'signin' ? "Successfully Signed In!" : "Account Created & Signed In!");
     }, 800);
   };
 
@@ -36,8 +39,8 @@ export default function LandingPage() {
       
       <main className="page-content container">
         
-        {/* Compact Hero Section + Small Login Form First */}
-        <section style={{ padding: '1.5rem 0 2.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+        {/* Compact Hero Section + Sign In / Sign Up Form */}
+        <section style={{ padding: '1.5rem 0 2.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', items: 'center' }}>
           
           <div>
             <div style={{
@@ -65,38 +68,67 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Small Compact Login Form First */}
+          {/* Sign In / Sign Up Card */}
           <div className="card" style={{ backgroundColor: 'white', padding: '1.25rem', maxWidth: '360px', margin: '0 auto', width: '100%', border: '1.5px solid rgba(99, 102, 241, 0.25)', boxShadow: 'var(--shadow-md)' }}>
-            <div className="flex items-center gap-2 mb-3">
-              <div style={{
-                width: '32px', height: '32px', borderRadius: '8px',
-                backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary-color)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <LogIn size={18} />
-              </div>
-              <div>
-                <h3 style={{ margin: 0, fontSize: '1.05rem' }}>Login First</h3>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Enter Mobile No. or Email</span>
-              </div>
+            
+            {/* Sign In / Sign Up Tabs */}
+            <div className="flex gap-1 mb-3" style={{ backgroundColor: 'var(--bg-main)', padding: '0.2rem', borderRadius: 'var(--radius-md)' }}>
+              <button
+                type="button"
+                onClick={() => { setAuthMode('signin'); setStep(1); }}
+                style={{
+                  flex: 1, padding: '0.4rem', borderRadius: 'var(--radius-md)', fontSize: '0.82rem', fontWeight: '700',
+                  backgroundColor: authMode === 'signin' ? 'white' : 'transparent',
+                  color: authMode === 'signin' ? 'var(--primary-color)' : 'var(--text-muted)',
+                  boxShadow: authMode === 'signin' ? 'var(--shadow-sm)' : 'none'
+                }}
+              >
+                <LogIn size={13} style={{ display: 'inline', marginRight: '4px' }} /> Sign In
+              </button>
+              <button
+                type="button"
+                onClick={() => { setAuthMode('signup'); setStep(1); }}
+                style={{
+                  flex: 1, padding: '0.4rem', borderRadius: 'var(--radius-md)', fontSize: '0.82rem', fontWeight: '700',
+                  backgroundColor: authMode === 'signup' ? 'white' : 'transparent',
+                  color: authMode === 'signup' ? 'var(--primary-color)' : 'var(--text-muted)',
+                  boxShadow: authMode === 'signup' ? 'var(--shadow-sm)' : 'none'
+                }}
+              >
+                <UserPlus size={13} style={{ display: 'inline', marginRight: '4px' }} /> Sign Up
+              </button>
             </div>
 
             {step === 1 ? (
               <form onSubmit={handleSendOtp}>
+                {authMode === 'signup' && (
+                  <div style={{ marginBottom: '0.65rem' }}>
+                    <input 
+                      type="text"
+                      className="input-field" 
+                      placeholder="Full Name"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      required
+                      style={{ padding: '0.55rem 0.85rem', fontSize: '0.88rem' }}
+                    />
+                  </div>
+                )}
+
                 <div style={{ marginBottom: '0.85rem' }}>
                   <input 
                     type="text"
                     className="input-field" 
-                    placeholder="Enter Mobile No. / Email ID"
+                    placeholder="Mobile No. / Email ID"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
                     required
-                    style={{ padding: '0.6rem 0.85rem', fontSize: '0.88rem' }}
+                    style={{ padding: '0.55rem 0.85rem', fontSize: '0.88rem' }}
                   />
                 </div>
 
                 <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.88rem' }}>
-                  Send OTP Code <ArrowRight size={14} />
+                  {authMode === 'signin' ? 'Sign In with OTP' : 'Sign Up & Get OTP'} <ArrowRight size={14} />
                 </button>
               </form>
             ) : (
@@ -126,7 +158,7 @@ export default function LandingPage() {
                 </div>
 
                 <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.88rem' }} disabled={isVerifying}>
-                  {isVerifying ? 'Verifying...' : 'Verify OTP & Login'}
+                  {isVerifying ? 'Verifying...' : authMode === 'signin' ? 'Verify & Sign In' : 'Verify & Complete Sign Up'}
                 </button>
               </form>
             )}
