@@ -2,8 +2,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LandingPage from './pages/citizen/LandingPage';
 import SelfEnumeration from './pages/citizen/SelfEnumeration';
 import MisinformationShield from './pages/citizen/MisinformationShield';
+import DocumentChecklist from './pages/citizen/DocumentChecklist';
 import EnumeratorDashboard from './pages/enumerator/EnumeratorDashboard';
+import FieldRoutePlanner from './pages/enumerator/FieldRoutePlanner';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminForecast from './pages/admin/AdminForecast';
 import GenAIAssistant from './components/ai/GenAIAssistant';
 import Navbar from './components/layout/Navbar';
 import { askCitizenAI } from './services/mockAiService';
@@ -29,10 +32,13 @@ function App() {
         <Route path="/" element={<Navigate to="/citizen" replace />} />
         <Route path="/citizen" element={<LandingPage />} />
         <Route path="/citizen/enumerate" element={<SelfEnumeration />} />
+        <Route path="/citizen/checklist" element={<DocumentChecklist />} />
         <Route path="/citizen/ask" element={<AskAIPage />} />
         <Route path="/citizen/verify" element={<MisinformationShield />} />
         <Route path="/enumerator" element={<EnumeratorDashboard />} />
+        <Route path="/enumerator/planner" element={<FieldRoutePlanner />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/forecast" element={<AdminForecast />} />
       </Routes>
     </Router>
   );
