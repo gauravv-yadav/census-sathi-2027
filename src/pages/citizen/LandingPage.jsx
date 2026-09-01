@@ -6,7 +6,7 @@ import Footer from '../../components/layout/Footer';
 import { t } from '../../utils/i18n';
 
 export default function LandingPage() {
-  const [authMode, setAuthMode] = useState('signin'); // 'signin' or 'signup'
+  const [authMode, setAuthMode] = useState('signin');
   const [identifier, setIdentifier] = useState('');
   const [fullName, setFullName] = useState('');
   const [step, setStep] = useState(1);
@@ -25,8 +25,8 @@ export default function LandingPage() {
     setIsVerifying(true);
     setTimeout(() => {
       setIsVerifying(false);
-      alert(authMode === 'signin' ? "Successfully Signed In!" : "Account Created & Signed In!");
-    }, 800);
+      alert(authMode === 'signin' ? "Signed In!" : "Signed Up!");
+    }, 600);
   };
 
   const handleDownload = (fileName) => {
@@ -39,70 +39,67 @@ export default function LandingPage() {
       
       <main className="page-content container">
         
-        {/* Compact Hero Section + Sign In / Sign Up Form */}
-        <section style={{ padding: '1.5rem 0 2.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', items: 'center' }}>
+        {/* Compact Hero Section + Small Auth Box */}
+        <section style={{ padding: '1rem 0 2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'center' }}>
           
           <div>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
               backgroundColor: 'rgba(99, 102, 241, 0.12)', color: 'var(--primary-dark)',
-              padding: '0.35rem 1rem', borderRadius: 'var(--radius-full)',
-              fontWeight: '700', fontSize: '0.8rem', marginBottom: '1rem',
+              padding: '0.3rem 0.85rem', borderRadius: 'var(--radius-full)',
+              fontWeight: '700', fontSize: '0.78rem', marginBottom: '0.75rem',
               border: '1px solid rgba(99, 102, 241, 0.25)'
             }}>
-              <Award size={15} color="var(--primary-color)" /> Next-Gen AI Public Infrastructure 2027
+              <Award size={14} color="var(--primary-color)" /> Next-Gen AI Public Infrastructure 2027
             </div>
 
-            <h1 style={{ fontSize: '3rem', marginBottom: '1rem', lineHeight: '1.15' }}>{t('heroTitle')}</h1>
-            <p style={{ fontSize: '1.1rem', margin: '0 0 1.5rem 0', color: 'var(--text-muted)' }}>
+            <h1 style={{ fontSize: '2.6rem', marginBottom: '0.75rem', lineHeight: '1.15' }}>{t('heroTitle')}</h1>
+            <p style={{ fontSize: '1rem', margin: '0 0 1.25rem 0', color: 'var(--text-muted)' }}>
               {t('heroSubtitle')}
             </p>
 
-            <div className="flex gap-3 flex-wrap">
-              <Link to="/citizen/enumerate" className="btn-primary" style={{ fontSize: '0.95rem', padding: '0.75rem 1.5rem' }}>
-                <ClipboardList size={18} /> {t('btnStart')}
+            <div className="flex gap-2.5 flex-wrap">
+              <Link to="/citizen/enumerate" className="btn-primary" style={{ fontSize: '0.88rem', padding: '0.65rem 1.25rem' }}>
+                <ClipboardList size={16} /> {t('btnStart')}
               </Link>
-              <Link to="/citizen/verify" className="btn-secondary" style={{ fontSize: '0.95rem', padding: '0.75rem 1.5rem' }}>
-                <ShieldCheck size={18} /> Verify Claim
+              <Link to="/citizen/verify" className="btn-secondary" style={{ fontSize: '0.88rem', padding: '0.65rem 1.25rem' }}>
+                <ShieldCheck size={16} /> Verify Claim
               </Link>
             </div>
           </div>
 
-          {/* Sign In / Sign Up Card */}
-          <div className="card" style={{ backgroundColor: 'white', padding: '1.25rem', maxWidth: '360px', margin: '0 auto', width: '100%', border: '1.5px solid rgba(99, 102, 241, 0.25)', boxShadow: 'var(--shadow-md)' }}>
+          {/* Extra Small Compact Auth Card */}
+          <div className="card" style={{ backgroundColor: 'white', padding: '1rem', maxWidth: '300px', margin: '0 auto', width: '100%', border: '1.5px solid rgba(99, 102, 241, 0.25)', boxShadow: 'var(--shadow-sm)' }}>
             
-            {/* Sign In / Sign Up Tabs */}
-            <div className="flex gap-1 mb-3" style={{ backgroundColor: 'var(--bg-main)', padding: '0.2rem', borderRadius: 'var(--radius-md)' }}>
+            <div className="flex gap-1 mb-2.5" style={{ backgroundColor: 'var(--bg-main)', padding: '0.15rem', borderRadius: 'var(--radius-md)' }}>
               <button
                 type="button"
                 onClick={() => { setAuthMode('signin'); setStep(1); }}
                 style={{
-                  flex: 1, padding: '0.4rem', borderRadius: 'var(--radius-md)', fontSize: '0.82rem', fontWeight: '700',
+                  flex: 1, padding: '0.3rem', borderRadius: 'var(--radius-md)', fontSize: '0.78rem', fontWeight: '700',
                   backgroundColor: authMode === 'signin' ? 'white' : 'transparent',
-                  color: authMode === 'signin' ? 'var(--primary-color)' : 'var(--text-muted)',
-                  boxShadow: authMode === 'signin' ? 'var(--shadow-sm)' : 'none'
+                  color: authMode === 'signin' ? 'var(--primary-color)' : 'var(--text-muted)'
                 }}
               >
-                <LogIn size={13} style={{ display: 'inline', marginRight: '4px' }} /> Sign In
+                Sign In
               </button>
               <button
                 type="button"
                 onClick={() => { setAuthMode('signup'); setStep(1); }}
                 style={{
-                  flex: 1, padding: '0.4rem', borderRadius: 'var(--radius-md)', fontSize: '0.82rem', fontWeight: '700',
+                  flex: 1, padding: '0.3rem', borderRadius: 'var(--radius-md)', fontSize: '0.78rem', fontWeight: '700',
                   backgroundColor: authMode === 'signup' ? 'white' : 'transparent',
-                  color: authMode === 'signup' ? 'var(--primary-color)' : 'var(--text-muted)',
-                  boxShadow: authMode === 'signup' ? 'var(--shadow-sm)' : 'none'
+                  color: authMode === 'signup' ? 'var(--primary-color)' : 'var(--text-muted)'
                 }}
               >
-                <UserPlus size={13} style={{ display: 'inline', marginRight: '4px' }} /> Sign Up
+                Sign Up
               </button>
             </div>
 
             {step === 1 ? (
               <form onSubmit={handleSendOtp}>
                 {authMode === 'signup' && (
-                  <div style={{ marginBottom: '0.65rem' }}>
+                  <div style={{ marginBottom: '0.5rem' }}>
                     <input 
                       type="text"
                       className="input-field" 
@@ -110,41 +107,41 @@ export default function LandingPage() {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       required
-                      style={{ padding: '0.55rem 0.85rem', fontSize: '0.88rem' }}
+                      style={{ padding: '0.45rem 0.75rem', fontSize: '0.82rem' }}
                     />
                   </div>
                 )}
 
-                <div style={{ marginBottom: '0.85rem' }}>
+                <div style={{ marginBottom: '0.65rem' }}>
                   <input 
                     type="text"
                     className="input-field" 
-                    placeholder="Mobile No. / Email ID"
+                    placeholder="Mobile No. / Email"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
                     required
-                    style={{ padding: '0.55rem 0.85rem', fontSize: '0.88rem' }}
+                    style={{ padding: '0.45rem 0.75rem', fontSize: '0.82rem' }}
                   />
                 </div>
 
-                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.88rem' }}>
-                  {authMode === 'signin' ? 'Sign In with OTP' : 'Sign Up & Get OTP'} <ArrowRight size={14} />
+                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.5rem', fontSize: '0.82rem' }}>
+                  {authMode === 'signin' ? 'Sign In OTP' : 'Sign Up OTP'} <ArrowRight size={13} />
                 </button>
               </form>
             ) : (
               <form onSubmit={handleVerifyOtp}>
-                <div style={{ marginBottom: '0.85rem', textAlign: 'center' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                <div style={{ marginBottom: '0.65rem', textAlign: 'center' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                     OTP sent to <strong>{identifier}</strong>
                   </span>
-                  <div className="flex justify-center gap-1.5 mt-2">
+                  <div className="flex justify-center gap-1.5 mt-1.5">
                     {[0, 1, 2, 3].map((idx) => (
                       <input
                         key={idx}
                         type="text"
                         maxLength="1"
                         className="input-field"
-                        style={{ width: '36px', height: '40px', textAlign: 'center', fontSize: '1rem', fontWeight: '700', padding: 0 }}
+                        style={{ width: '32px', height: '36px', textAlign: 'center', fontSize: '0.9rem', fontWeight: '700', padding: 0 }}
                         value={otp[idx]}
                         onChange={(e) => {
                           const newOtp = [...otp];
@@ -157,8 +154,8 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.88rem' }} disabled={isVerifying}>
-                  {isVerifying ? 'Verifying...' : authMode === 'signin' ? 'Verify & Sign In' : 'Verify & Complete Sign Up'}
+                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.5rem', fontSize: '0.82rem' }} disabled={isVerifying}>
+                  {isVerifying ? 'Verifying...' : 'Verify OTP'}
                 </button>
               </form>
             )}
@@ -171,65 +168,65 @@ export default function LandingPage() {
         <section style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '1.5rem' 
+          gap: '1.25rem' 
         }}>
-          <Link to="/citizen/ask" className="card" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ color: 'var(--primary-color)', marginBottom: '0.75rem' }}>
-              <MessageSquare size={36} />
+          <Link to="/citizen/ask" className="card" style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: '1.25rem' }}>
+            <div style={{ color: 'var(--primary-color)', marginBottom: '0.5rem' }}>
+              <MessageSquare size={32} />
             </div>
-            <h2>{t('cardAskTitle')}</h2>
-            <p style={{ fontSize: '0.95rem' }}>{t('cardAskDesc')}</p>
+            <h2 style={{ fontSize: '1.3rem' }}>{t('cardAskTitle')}</h2>
+            <p style={{ fontSize: '0.9rem' }}>{t('cardAskDesc')}</p>
           </Link>
 
-          <Link to="/citizen/verify" className="card" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ color: 'var(--accent-color)', marginBottom: '0.75rem' }}>
-              <ShieldCheck size={36} />
+          <Link to="/citizen/verify" className="card" style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: '1.25rem' }}>
+            <div style={{ color: 'var(--accent-color)', marginBottom: '0.5rem' }}>
+              <ShieldCheck size={32} />
             </div>
-            <h2>{t('cardVerifyTitle')}</h2>
-            <p style={{ fontSize: '0.95rem' }}>{t('cardVerifyDesc')}</p>
+            <h2 style={{ fontSize: '1.3rem' }}>{t('cardVerifyTitle')}</h2>
+            <p style={{ fontSize: '0.9rem' }}>{t('cardVerifyDesc')}</p>
           </Link>
 
-          <div className="card">
-            <div style={{ color: 'var(--secondary-color)', marginBottom: '0.75rem' }}>
-              <Calendar size={36} />
+          <div className="card" style={{ padding: '1.25rem' }}>
+            <div style={{ color: 'var(--secondary-color)', marginBottom: '0.5rem' }}>
+              <Calendar size={32} />
             </div>
-            <h2>{t('cardScheduleTitle')}</h2>
-            <p style={{ fontSize: '0.95rem' }}>{t('cardScheduleDesc')}</p>
+            <h2 style={{ fontSize: '1.3rem' }}>{t('cardScheduleTitle')}</h2>
+            <p style={{ fontSize: '0.9rem' }}>{t('cardScheduleDesc')}</p>
           </div>
         </section>
 
         {/* Impact Highlights Bar */}
-        <section style={{ marginTop: '3rem' }}>
+        <section style={{ marginTop: '2.5rem' }}>
           <div className="card" style={{
             background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%)',
             border: '1.5px solid rgba(99, 102, 241, 0.2)',
-            padding: '1.5rem'
+            padding: '1.25rem'
           }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '1rem', textAlign: 'center' }}>
               <div>
-                <div style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--primary-color)' }}>100%</div>
-                <div style={{ fontWeight: '600', fontSize: '0.88rem' }}>Confidential & Encrypted</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--primary-color)' }}>100%</div>
+                <div style={{ fontWeight: '600', fontSize: '0.82rem' }}>Confidential & Encrypted</div>
               </div>
               <div>
-                <div style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--secondary-color)' }}>6+</div>
-                <div style={{ fontWeight: '600', fontSize: '0.88rem' }}>Regional Languages</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--secondary-color)' }}>6+</div>
+                <div style={{ fontWeight: '600', fontSize: '0.82rem' }}>Regional Languages</div>
               </div>
               <div>
-                <div style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--accent-color)' }}>Real-Time</div>
-                <div style={{ fontWeight: '600', fontSize: '0.88rem' }}>RAG Misinformation Shield</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--accent-color)' }}>Real-Time</div>
+                <div style={{ fontWeight: '600', fontSize: '0.82rem' }}>RAG Misinformation Shield</div>
               </div>
               <div>
-                <div style={{ fontSize: '2.2rem', fontWeight: '800', color: '#8b5cf6' }}>Voice AI</div>
-                <div style={{ fontWeight: '600', fontSize: '0.88rem' }}>Hands-Free Enumeration</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '800', color: '#8b5cf6' }}>Voice AI</div>
+                <div style={{ fontWeight: '600', fontSize: '0.82rem' }}>Hands-Free Enumeration</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* How It Works Section */}
-        <section style={{ marginTop: '3rem' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>How Self-Enumeration Works</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+        <section style={{ marginTop: '2.5rem' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '1.75rem' }}>How Self-Enumeration Works</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
             <StepCard step="1" title="Access Portal" desc="Open the portal from your mobile or PC. Select your preferred language." />
             <StepCard step="2" title="Answer 15 Questions" desc="Answer simple questions about housing and basic household amenities." />
             <StepCard step="3" title="Use Voice Assistant" desc="Use the mic option if you prefer speaking your answers out loud." />
@@ -238,46 +235,46 @@ export default function LandingPage() {
         </section>
 
         {/* Downloadable Resources & Posters (PDF) */}
-        <section style={{ marginTop: '3rem' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Official Resources & PDF Downloads</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+        <section style={{ marginTop: '2.5rem' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontSize: '1.75rem' }}>Official Resources & PDF Downloads</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
             
-            <div className="card flex items-center justify-between" style={{ padding: '1rem' }}>
-              <div className="flex items-center gap-3">
-                <FileText size={28} color="var(--primary-color)" />
+            <div className="card flex items-center justify-between" style={{ padding: '0.85rem 1rem' }}>
+              <div className="flex items-center gap-2.5">
+                <FileText size={24} color="var(--primary-color)" />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '0.95rem' }}>Citizen Guidebook 2027</h4>
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>PDF • 2.4 MB</span>
+                  <h4 style={{ margin: 0, fontSize: '0.9rem' }}>Citizen Guidebook 2027</h4>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>PDF • 2.4 MB</span>
                 </div>
               </div>
-              <button onClick={() => handleDownload("Citizen_Guidebook_2027.pdf")} className="btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-                <Download size={14} /> PDF
+              <button onClick={() => handleDownload("Citizen_Guidebook_2027.pdf")} className="btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}>
+                <Download size={13} /> PDF
               </button>
             </div>
 
-            <div className="card flex items-center justify-between" style={{ padding: '1rem' }}>
-              <div className="flex items-center gap-3">
-                <FileText size={28} color="var(--accent-color)" />
+            <div className="card flex items-center justify-between" style={{ padding: '0.85rem 1rem' }}>
+              <div className="flex items-center gap-2.5">
+                <FileText size={24} color="var(--accent-color)" />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '0.95rem' }}>Awareness Poster</h4>
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Printable • 1.1 MB</span>
+                  <h4 style={{ margin: 0, fontSize: '0.9rem' }}>Awareness Poster</h4>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Printable • 1.1 MB</span>
                 </div>
               </div>
-              <button onClick={() => handleDownload("Awareness_Poster.pdf")} className="btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-                <Download size={14} /> PDF
+              <button onClick={() => handleDownload("Awareness_Poster.pdf")} className="btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}>
+                <Download size={13} /> PDF
               </button>
             </div>
 
-            <div className="card flex items-center justify-between" style={{ padding: '1rem' }}>
-              <div className="flex items-center gap-3">
-                <HelpCircle size={28} color="var(--secondary-color)" />
+            <div className="card flex items-center justify-between" style={{ padding: '0.85rem 1rem' }}>
+              <div className="flex items-center gap-2.5">
+                <HelpCircle size={24} color="var(--secondary-color)" />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '0.95rem' }}>FAQs & Safety Handbook</h4>
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>PDF • 1.8 MB</span>
+                  <h4 style={{ margin: 0, fontSize: '0.9rem' }}>FAQs & Safety Handbook</h4>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>PDF • 1.8 MB</span>
                 </div>
               </div>
-              <button onClick={() => handleDownload("Safety_Handbook.pdf")} className="btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-                <Download size={14} /> PDF
+              <button onClick={() => handleDownload("Safety_Handbook.pdf")} className="btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}>
+                <Download size={13} /> PDF
               </button>
             </div>
 
@@ -292,16 +289,16 @@ export default function LandingPage() {
 
 function StepCard({ step, title, desc }) {
   return (
-    <div className="card text-center" style={{ padding: '1.25rem' }}>
+    <div className="card text-center" style={{ padding: '1rem' }}>
       <div style={{
-        width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--primary-color)',
+        width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--primary-color)',
         color: 'white', fontWeight: '700', display: 'flex', items: 'center', justifyContent: 'center',
-        margin: '0 auto 0.75rem', fontSize: '0.9rem'
+        margin: '0 auto 0.5rem', fontSize: '0.85rem'
       }}>
         {step}
       </div>
-      <h3 style={{ fontSize: '1rem', marginBottom: '0.4rem' }}>{title}</h3>
-      <p style={{ fontSize: '0.82rem', margin: 0, color: 'var(--text-muted)' }}>{desc}</p>
+      <h3 style={{ fontSize: '0.95rem', marginBottom: '0.3rem' }}>{title}</h3>
+      <p style={{ fontSize: '0.78rem', margin: 0, color: 'var(--text-muted)' }}>{desc}</p>
     </div>
   );
 }
