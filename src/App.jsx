@@ -30,7 +30,6 @@ const AskAIPage = () => (
 function App() {
   return (
     <Router>
-      <Navbar />
       <JudgeDemoOverlay />
       <Routes>
         <Route path="/" element={<Navigate to="/citizen" replace />} />
