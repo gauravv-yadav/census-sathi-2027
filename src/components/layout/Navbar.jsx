@@ -25,7 +25,7 @@ export default function Navbar() {
         <div className={styles.navLinks}>
           <Link to="/citizen" className={styles.link}>{t('navCitizen')}</Link>
           <Link to="/citizen/enumerate" className={styles.link}>Self-Enumeration</Link>
-          <Link to="/citizen/checklist" className={styles.link}>Checklist</Link>
+          <Link to="/citizen/verify-agent" className={styles.link}>Verify Agent 🛡️</Link>
           <Link to="/citizen/quiz" className={styles.link}>Safety Quiz 🏆</Link>
           <Link to="/citizen/verify" className={styles.link}>Verify Claims</Link>
           <Link to="/enumerator" className={styles.link}>{t('navField')}</Link>

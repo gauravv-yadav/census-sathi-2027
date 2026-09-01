@@ -4,6 +4,7 @@ import SelfEnumeration from './pages/citizen/SelfEnumeration';
 import MisinformationShield from './pages/citizen/MisinformationShield';
 import DocumentChecklist from './pages/citizen/DocumentChecklist';
 import CitizenQuiz from './pages/citizen/CitizenQuiz';
+import EnumeratorVerification from './pages/citizen/EnumeratorVerification';
 import EnumeratorDashboard from './pages/enumerator/EnumeratorDashboard';
 import FieldRoutePlanner from './pages/enumerator/FieldRoutePlanner';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -39,6 +40,7 @@ function App() {
         <Route path="/citizen/enumerate" element={<SelfEnumeration />} />
         <Route path="/citizen/checklist" element={<DocumentChecklist />} />
         <Route path="/citizen/quiz" element={<CitizenQuiz />} />
+        <Route path="/citizen/verify-agent" element={<EnumeratorVerification />} />
         <Route path="/citizen/ask" element={<AskAIPage />} />
         <Route path="/citizen/verify" element={<MisinformationShield />} />
         <Route path="/enumerator" element={<EnumeratorDashboard />} />
