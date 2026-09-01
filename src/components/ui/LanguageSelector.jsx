@@ -11,31 +11,32 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div className="flex items-center gap-2" style={{ color: 'var(--text-main)' }}>
-      <Globe size={20} color="var(--primary-color)" />
+    <div className="flex items-center gap-1" style={{ color: 'var(--text-main)', flexShrink: 0 }}>
+      <Globe size={16} color="var(--primary-color)" />
       <select 
         value={currentLang}
         onChange={handleChange}
         style={{
           border: '1px solid var(--border-color)',
-          background: 'rgba(255,255,255,0.8)',
+          background: 'rgba(255,255,255,0.95)',
           borderRadius: 'var(--radius-full)',
-          padding: '0.4rem 0.8rem',
-          fontSize: '0.9rem',
+          padding: '0.2rem 0.4rem',
+          fontSize: '0.78rem',
           fontWeight: '600',
           cursor: 'pointer',
           outline: 'none',
           color: 'var(--text-main)',
-          boxShadow: 'var(--shadow-sm)'
+          boxShadow: 'var(--shadow-sm)',
+          maxWidth: '100px'
         }}
         aria-label="Select Language"
       >
         <option value="en">English</option>
-        <option value="hi">हिंदी (Hindi)</option>
-        <option value="mr">मराठी (Marathi)</option>
-        <option value="bn">বাংলা (Bengali)</option>
-        <option value="ta">தமிழ் (Tamil)</option>
-        <option value="te">తెలుగు (Telugu)</option>
+        <option value="hi">हिंदी</option>
+        <option value="mr">मराठी</option>
+        <option value="bn">বাংলা</option>
+        <option value="ta">தமிழ்</option>
+        <option value="te">తెలుగు</option>
       </select>
     </div>
   );
