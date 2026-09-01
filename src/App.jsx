@@ -7,6 +7,7 @@ import EnumeratorDashboard from './pages/enumerator/EnumeratorDashboard';
 import FieldRoutePlanner from './pages/enumerator/FieldRoutePlanner';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminForecast from './pages/admin/AdminForecast';
+import LoginModal from './pages/auth/LoginModal';
 import GenAIAssistant from './components/ai/GenAIAssistant';
 import Navbar from './components/layout/Navbar';
 import { askCitizenAI } from './services/mockAiService';
@@ -30,6 +31,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/citizen" replace />} />
+        <Route path="/login" element={<LoginModal />} />
         <Route path="/citizen" element={<LandingPage />} />
         <Route path="/citizen/enumerate" element={<SelfEnumeration />} />
         <Route path="/citizen/checklist" element={<DocumentChecklist />} />

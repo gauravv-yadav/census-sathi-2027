@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Bell, X } from 'lucide-react';
+import { Bell, X, LogIn } from 'lucide-react';
 import LanguageSelector from '../ui/LanguageSelector';
 import styles from './Navbar.module.css';
 import { t } from '../../utils/i18n';
@@ -34,6 +34,12 @@ export default function Navbar() {
         </div>
 
         <div className={styles.actions}>
+          {/* OTP Login Button */}
+          <Link to="/login" className="btn-secondary" style={{ padding: '0.4rem 0.9rem', fontSize: '0.85rem' }}>
+            <LogIn size={15} /> Login OTP
+          </Link>
+
+          {/* Notifications */}
           <div style={{ position: 'relative' }}>
             <button 
               onClick={() => setShowNotifications(!showNotifications)}

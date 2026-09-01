@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Users, CheckCircle, Clock, AlertTriangle, Activity } from 'lucide-react';
+import { Users, CheckCircle, Clock, AlertTriangle, Activity, MapPin, Building } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer';
 import GenAIAssistant from '../../components/ai/GenAIAssistant';
 import { mockAdminStats } from '../../data/mockData';
 import { askAdminAI } from '../../services/mockAiService';
@@ -19,6 +20,13 @@ export default function AdminDashboard() {
     "System Initialized",
     "Data streams connected securely"
   ]);
+
+  const stateCityAlerts = [
+    { state: "Maharashtra", city: "Mumbai", colony: "Bandra West", issue: "Low self-enumeration rate", severity: "medium" },
+    { state: "Karnataka", city: "Bengaluru", colony: "Jayanagar 4th Block", issue: "High misinformation reports", severity: "high" },
+    { state: "West Bengal", city: "Kolkata", colony: "Salt Lake Sector V", issue: "Field agents require translation support", severity: "medium" },
+    { state: "Delhi NCR", city: "New Delhi", colony: "Vasant Vihar Phase 2", issue: "High verification requests", severity: "low" }
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,20 +118,24 @@ export default function AdminDashboard() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+              
+              {/* State & City Alerts */}
               <div className="card">
-                <h3>{t('regionalAlerts')}</h3>
-                <div style={{ marginTop: '1rem' }}>
-                  {data.regionalAlerts.map((alert, idx) => (
+                <h3>Active City & State Alerts</h3>
+                <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {stateCityAlerts.map((alert, idx) => (
                     <div key={idx} style={{ 
-                      display: 'flex', alignItems: 'center', gap: '1rem', 
-                      padding: '1rem', backgroundColor: alert.severity === 'high' ? 'rgba(239, 68, 68, 0.05)' : 'rgba(245, 158, 11, 0.05)',
+                      display: 'flex', alignItems: 'flex-start', gap: '0.75rem', 
+                      padding: '0.85rem', backgroundColor: alert.severity === 'high' ? 'rgba(239, 68, 68, 0.05)' : 'rgba(245, 158, 11, 0.05)',
                       border: `1px solid ${alert.severity === 'high' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`,
-                      borderRadius: 'var(--radius-md)', marginBottom: '0.75rem'
+                      borderRadius: 'var(--radius-md)'
                     }}>
-                      <AlertTriangle size={24} color={alert.severity === 'high' ? '#ef4444' : '#f59e0b'} />
+                      <AlertTriangle size={20} color={alert.severity === 'high' ? '#ef4444' : '#f59e0b'} style={{ marginTop: '2px' }} />
                       <div>
-                        <strong style={{ display: 'block', color: 'var(--text-main)' }}>{alert.region}</strong>
-                        <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{alert.issue}</span>
+                        <div style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--primary-dark)' }}>
+                          {alert.city}, {alert.state} ({alert.colony})
+                        </div>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{alert.issue}</span>
                       </div>
                     </div>
                   ))}
@@ -161,20 +173,7 @@ export default function AdminDashboard() {
 
         </div>
       </main>
-
-      <style>{`
-        @keyframes pulse {
-          0% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(1.1); }
-          100% { opacity: 1; transform: scale(1); }
-        }
-        .pulse { animation: pulse 2s infinite; }
-        
-        @keyframes slideIn {
-          from { opacity: 0; transform: translateX(-10px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
+      <Footer />
     </div>
   );
 }
