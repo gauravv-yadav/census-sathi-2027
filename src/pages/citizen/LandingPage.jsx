@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer';
 import { t } from '../../utils/i18n';
 
 export default function LandingPage() {
@@ -114,11 +115,11 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section style={{ marginTop: '4rem', marginBottom: '3rem' }}>
+        <section style={{ marginTop: '4rem', marginBottom: '1rem' }}>
           <div className="card" style={{ backgroundColor: 'var(--bg-ai)', border: '1px solid var(--primary-light)', padding: '2rem' }}>
             <div className="flex justify-between items-center flex-wrap gap-4">
               <div>
-                <h3 style={{ margin: 0, color: 'var(--primary-dark)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <h3 style={{ margin: 0, color: 'var(--primary-dark)', display: 'flex', items: 'center', gap: '0.5rem' }}>
                   <Phone size={24} /> Need Help or Technical Support?
                 </h3>
                 <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.95rem' }}>
@@ -135,6 +136,7 @@ export default function LandingPage() {
         </section>
 
       </main>
+      <Footer />
     </div>
   );
 }
@@ -144,7 +146,7 @@ function StepCard({ step, title, desc }) {
     <div className="card text-center" style={{ padding: '1.5rem' }}>
       <div style={{
         width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--primary-color)',
-        color: 'white', fontWeight: '700', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: 'white', fontWeight: '700', display: 'flex', items: 'center', justifyContent: 'center',
         margin: '0 auto 1rem'
       }}>
         {step}

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navbar from '../../components/layout/Navbar';
+import Footer from '../../components/layout/Footer';
 import GenAIAssistant from '../../components/ai/GenAIAssistant';
 import { mockQuestions } from '../../data/mockData';
-import { ShieldAlert, CheckCircle2, Mic, Volume2, Download, QrCode, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ShieldAlert, CheckCircle2, Mic, Volume2, Download, QrCode, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { matchVoiceToOption } from '../../services/mockAiService';
 import VoiceButton from '../../components/ui/VoiceButton';
 
@@ -76,8 +77,17 @@ export default function SelfEnumeration() {
       <div>
         <Navbar />
         <main className="page-content container flex justify-center items-center" style={{ minHeight: '75vh' }}>
-          <div className="card text-center" style={{ maxWidth: '600px', width: '100%', padding: '2.5rem', border: '2px solid rgba(16, 185, 129, 0.3)' }}>
+          <div className="card text-center" style={{ maxWidth: '600px', width: '100%', padding: '2.5rem', border: '2px solid rgba(16, 185, 129, 0.3)', position: 'relative', overflow: 'hidden' }}>
             
+            {/* Celebration Effect Header */}
+            <div style={{
+              backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.4rem 1rem', borderRadius: 'var(--radius-full)',
+              color: '#047857', fontWeight: '600', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+              marginBottom: '1rem'
+            }}>
+              <Sparkles size={16} /> Submission Verified & Recorded
+            </div>
+
             <div style={{
               width: '70px', height: '70px', borderRadius: '50%',
               backgroundColor: 'rgba(16, 185, 129, 0.1)', display: 'flex',
@@ -91,7 +101,6 @@ export default function SelfEnumeration() {
               Your response has been digitally signed, encrypted, and recorded in the statistical database.
             </p>
 
-            {/* Official Digital Census Slip */}
             <div style={{
               backgroundColor: 'var(--bg-main)',
               border: '1px dashed var(--border-color)',
@@ -144,6 +153,7 @@ export default function SelfEnumeration() {
             </div>
           </div>
         </main>
+        <Footer />
       </div>
     );
   }
@@ -166,11 +176,9 @@ export default function SelfEnumeration() {
 
       <main className="page-content container" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
         
-        {/* Main Form Question Card */}
         <section style={{ flex: '2', minWidth: '320px' }}>
           <div className="card" style={{ height: '100%', position: 'relative' }}>
             
-            {/* Progress Bar & Badges */}
             <div style={{ marginBottom: '1.5rem' }}>
               <div className="flex justify-between items-center mb-2">
                 <span style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--primary-color)' }}>
@@ -272,7 +280,6 @@ export default function SelfEnumeration() {
           </div>
         </section>
 
-        {/* AI Copilot Sidepane */}
         <section style={{ flex: '1', minWidth: '300px' }}>
           <GenAIAssistant 
             title="AI Self-Enumeration Copilot" 
@@ -290,6 +297,7 @@ export default function SelfEnumeration() {
         </section>
 
       </main>
+      <Footer />
       <style>{`
         @keyframes fadeInDown {
           from { opacity: 0; transform: translate(-50%, -20px); }
