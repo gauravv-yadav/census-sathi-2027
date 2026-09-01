@@ -1,10 +1,32 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle, UserCheck, ShieldAlert, Award } from 'lucide-react';
+import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle, Award, LogIn, Mail, ArrowRight } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import { t } from '../../utils/i18n';
 
 export default function LandingPage() {
+  const [method, setMethod] = useState('mobile');
+  const [identifier, setIdentifier] = useState('');
+  const [step, setStep] = useState(1);
+  const [otp, setOtp] = useState(['', '', '', '']);
+  const [isVerifying, setIsVerifying] = useState(false);
+
+  const handleSendOtp = (e) => {
+    e.preventDefault();
+    if (!identifier.trim()) return;
+    setStep(2);
+  };
+
+  const handleVerifyOtp = (e) => {
+    e.preventDefault();
+    setIsVerifying(true);
+    setTimeout(() => {
+      setIsVerifying(false);
+      alert("Successfully Authenticated!");
+    }, 1000);
+  };
+
   const handleDownload = (fileName) => {
     alert(`Downloading ${fileName}... (Demo PDF file trigger)`);
   };
@@ -14,30 +36,129 @@ export default function LandingPage() {
       <Navbar />
       
       <main className="page-content container">
-        {/* Hero Banner */}
-        <section className="text-center" style={{ padding: '3rem 0 3rem' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            backgroundColor: 'rgba(99, 102, 241, 0.12)', color: 'var(--primary-dark)',
-            padding: '0.4rem 1.2rem', borderRadius: 'var(--radius-full)',
-            fontWeight: '700', fontSize: '0.85rem', marginBottom: '1.5rem',
-            border: '1px solid rgba(99, 102, 241, 0.25)'
-          }}>
-            <Award size={16} color="var(--primary-color)" /> Next-Gen AI Public Infrastructure 2027
+        
+        {/* Hero Section + Quick OTP Login Card on Screen */}
+        <section style={{ padding: '2rem 0 3rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', alignItems: 'center' }}>
+          
+          <div>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              backgroundColor: 'rgba(99, 102, 241, 0.12)', color: 'var(--primary-dark)',
+              padding: '0.4rem 1.2rem', borderRadius: 'var(--radius-full)',
+              fontWeight: '700', fontSize: '0.85rem', marginBottom: '1.25rem',
+              border: '1px solid rgba(99, 102, 241, 0.25)'
+            }}>
+              <Award size={16} color="var(--primary-color)" /> Next-Gen AI Public Infrastructure 2027
+            </div>
+
+            <h1 style={{ fontSize: '3.25rem', marginBottom: '1.25rem', lineHeight: '1.15' }}>{t('heroTitle')}</h1>
+            <p style={{ fontSize: '1.15rem', margin: '0 0 2rem 0', color: 'var(--text-muted)' }}>
+              {t('heroSubtitle')}
+            </p>
+
+            <div className="flex gap-3 flex-wrap">
+              <Link to="/citizen/enumerate" className="btn-primary" style={{ fontSize: '1rem', padding: '0.85rem 1.75rem' }}>
+                <ClipboardList size={20} /> {t('btnStart')}
+              </Link>
+              <Link to="/citizen/verify" className="btn-secondary" style={{ fontSize: '1rem', padding: '0.85rem 1.75rem' }}>
+                <ShieldCheck size={20} /> Verify Claim
+              </Link>
+            </div>
           </div>
 
-          <h1 style={{ fontSize: '3.75rem', marginBottom: '1.5rem' }}>{t('heroTitle')}</h1>
-          <p style={{ fontSize: '1.25rem', maxWidth: '850px', margin: '0 auto 2.5rem' }}>
-            {t('heroSubtitle')}
-          </p>
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Link to="/citizen/enumerate" className="btn-primary" style={{ fontSize: '1.1rem', padding: '1rem 2.25rem' }}>
-              <ClipboardList size={22} /> {t('btnStart')}
-            </Link>
-            <Link to="/citizen/verify" className="btn-secondary" style={{ fontSize: '1.1rem', padding: '1rem 2.25rem' }}>
-              <ShieldCheck size={22} /> Verify Claim
-            </Link>
+          {/* Quick OTP Authentication Card Right on Main Screen */}
+          <div className="card" style={{ backgroundColor: 'white', padding: '1.75rem', border: '1.5px solid rgba(99, 102, 241, 0.25)', boxShadow: 'var(--shadow-lg)' }}>
+            <div className="flex items-center gap-3 mb-3">
+              <div style={{
+                width: '40px', height: '40px', borderRadius: '10px',
+                backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary-color)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <LogIn size={22} />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1.2rem' }}>Quick OTP Login</h3>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Mobile or Email 2FA Access</span>
+              </div>
+            </div>
+
+            {step === 1 ? (
+              <form onSubmit={handleSendOtp}>
+                <div className="flex gap-2 mb-3" style={{ backgroundColor: 'var(--bg-main)', padding: '0.25rem', borderRadius: 'var(--radius-md)' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setMethod('mobile'); setIdentifier(''); }}
+                    style={{
+                      flex: 1, padding: '0.4rem', borderRadius: 'var(--radius-md)', fontSize: '0.8rem', fontWeight: '600',
+                      backgroundColor: method === 'mobile' ? 'white' : 'transparent',
+                      color: method === 'mobile' ? 'var(--primary-color)' : 'var(--text-muted)'
+                    }}
+                  >
+                    Mobile OTP
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setMethod('email'); setIdentifier(''); }}
+                    style={{
+                      flex: 1, padding: '0.4rem', borderRadius: 'var(--radius-md)', fontSize: '0.8rem', fontWeight: '600',
+                      backgroundColor: method === 'email' ? 'white' : 'transparent',
+                      color: method === 'email' ? 'var(--primary-color)' : 'var(--text-muted)'
+                    }}
+                  >
+                    Email OTP
+                  </button>
+                </div>
+
+                <div style={{ marginBottom: '1.25rem' }}>
+                  <input 
+                    type={method === 'mobile' ? 'tel' : 'email'}
+                    className="input-field" 
+                    placeholder={method === 'mobile' ? 'Enter 10-Digit Mobile Number' : 'Enter Email ID'}
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    required
+                    style={{ padding: '0.75rem 1rem', fontSize: '0.95rem' }}
+                  />
+                </div>
+
+                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.75rem', fontSize: '0.95rem' }}>
+                  Send OTP Code <ArrowRight size={16} />
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleVerifyOtp}>
+                <div style={{ marginBottom: '1.25rem', textAlign: 'center' }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    Enter 4-digit code sent to <strong>{identifier}</strong>
+                  </span>
+                  <div className="flex justify-center gap-2 mt-3">
+                    {[0, 1, 2, 3].map((idx) => (
+                      <input
+                        key={idx}
+                        type="text"
+                        maxLength="1"
+                        className="input-field"
+                        style={{ width: '42px', height: '48px', textAlign: 'center', fontSize: '1.1rem', fontWeight: '700' }}
+                        value={otp[idx]}
+                        onChange={(e) => {
+                          const newOtp = [...otp];
+                          newOtp[idx] = e.target.value;
+                          setOtp(newOtp);
+                          if (e.target.value && e.target.nextSibling) e.target.nextSibling.focus();
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.75rem', fontSize: '0.95rem' }} disabled={isVerifying}>
+                  {isVerifying ? 'Verifying...' : 'Verify & Continue'}
+                </button>
+              </form>
+            )}
+
           </div>
+
         </section>
 
         {/* Feature Cards Grid */}
@@ -154,27 +275,6 @@ export default function LandingPage() {
               </button>
             </div>
 
-          </div>
-        </section>
-
-        {/* Support & Helpline Section */}
-        <section style={{ marginTop: '4rem', marginBottom: '1rem' }}>
-          <div className="card" style={{ backgroundColor: 'var(--bg-ai)', border: '1px solid var(--primary-light)', padding: '2rem' }}>
-            <div className="flex justify-between items-center flex-wrap gap-4">
-              <div>
-                <h3 style={{ margin: 0, color: 'var(--primary-dark)', display: 'flex', items: 'center', gap: '0.5rem' }}>
-                  <Phone size={24} /> Need Help or Technical Support?
-                </h3>
-                <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.95rem' }}>
-                  Our support desk is available 24/7. Call our toll-free assistance number or connect via WhatsApp.
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <a href="tel:1800112027" className="btn-primary" style={{ textDecoration: 'none' }}>
-                  Toll-Free: 1800-11-2027
-                </a>
-              </div>
-            </div>
           </div>
         </section>
 
