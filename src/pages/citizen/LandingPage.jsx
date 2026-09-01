@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle } from 'lucide-react';
+import { ShieldCheck, MessageSquare, ClipboardList, Calendar, Download, Phone, FileText, HelpCircle, UserCheck, ShieldAlert, Award } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import { t } from '../../utils/i18n';
@@ -14,21 +14,33 @@ export default function LandingPage() {
       <Navbar />
       
       <main className="page-content container">
+        {/* Hero Banner */}
         <section className="text-center" style={{ padding: '3rem 0 3rem' }}>
-          <h1 style={{ fontSize: '3.5rem', marginBottom: '1.5rem' }}>{t('heroTitle')}</h1>
-          <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+            backgroundColor: 'rgba(99, 102, 241, 0.12)', color: 'var(--primary-dark)',
+            padding: '0.4rem 1.2rem', borderRadius: 'var(--radius-full)',
+            fontWeight: '700', fontSize: '0.85rem', marginBottom: '1.5rem',
+            border: '1px solid rgba(99, 102, 241, 0.25)'
+          }}>
+            <Award size={16} color="var(--primary-color)" /> Next-Gen AI Public Infrastructure 2027
+          </div>
+
+          <h1 style={{ fontSize: '3.75rem', marginBottom: '1.5rem' }}>{t('heroTitle')}</h1>
+          <p style={{ fontSize: '1.25rem', maxWidth: '850px', margin: '0 auto 2.5rem' }}>
             {t('heroSubtitle')}
           </p>
-          <div className="flex justify-center gap-4">
-            <Link to="/citizen/enumerate" className="btn-primary">
-              <ClipboardList size={20} /> {t('btnStart')}
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Link to="/citizen/enumerate" className="btn-primary" style={{ fontSize: '1.1rem', padding: '1rem 2.25rem' }}>
+              <ClipboardList size={22} /> {t('btnStart')}
             </Link>
-            <Link to="/citizen/verify" className="btn-secondary">
-              <ShieldCheck size={20} /> Verify Claim
+            <Link to="/citizen/verify" className="btn-secondary" style={{ fontSize: '1.1rem', padding: '1rem 2.25rem' }}>
+              <ShieldCheck size={22} /> Verify Claim
             </Link>
           </div>
         </section>
 
+        {/* Feature Cards Grid */}
         <section style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
@@ -59,6 +71,35 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Impact Highlights Bar */}
+        <section style={{ marginTop: '4rem' }}>
+          <div className="card" style={{
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%)',
+            border: '1.5px solid rgba(99, 102, 241, 0.2)',
+            padding: '2rem'
+          }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', textAlign: 'center' }}>
+              <div>
+                <div style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--primary-color)' }}>100%</div>
+                <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>Confidential & Encrypted</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--secondary-color)' }}>6+</div>
+                <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>Regional Languages</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '2.5rem', fontWeight: '800', color: 'var(--accent-color)' }}>Real-Time</div>
+                <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>RAG Misinformation Shield</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#8b5cf6' }}>Voice AI</div>
+                <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>Hands-Free Enumeration</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
         <section style={{ marginTop: '4rem' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2.5rem' }}>How Self-Enumeration Works</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
@@ -69,6 +110,7 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Downloadable Resources & Posters (PDF) */}
         <section style={{ marginTop: '4rem' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Official Resources & PDF Downloads</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
@@ -115,6 +157,7 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Support & Helpline Section */}
         <section style={{ marginTop: '4rem', marginBottom: '1rem' }}>
           <div className="card" style={{ backgroundColor: 'var(--bg-ai)', border: '1px solid var(--primary-light)', padding: '2rem' }}>
             <div className="flex justify-between items-center flex-wrap gap-4">
