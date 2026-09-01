@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Users, CheckCircle, Clock, AlertTriangle, Activity, MapPin, Building } from 'lucide-react';
+import { Users, CheckCircle, Clock, AlertTriangle, Activity, Sparkles, FileText, Download, Copy } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import GenAIAssistant from '../../components/ai/GenAIAssistant';
@@ -20,6 +20,8 @@ export default function AdminDashboard() {
     "System Initialized",
     "Data streams connected securely"
   ]);
+  const [executiveReport, setExecutiveReport] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const stateCityAlerts = [
     { state: "Maharashtra", city: "Mumbai", colony: "Bandra West", issue: "Low self-enumeration rate", severity: "medium" },
@@ -42,21 +44,66 @@ export default function AdminDashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleGenerateReport = () => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      setIsGenerating(false);
+      setExecutiveReport({
+        title: "Census 2027 Executive AI Operational Brief",
+        timestamp: new Date().toLocaleString(),
+        completionPercent: "74.0%",
+        keyInsight: "Self-enumeration portal usage has increased by 18.5% following regional voice assistant deployment.",
+        priorityZones: "Karnataka (Bengaluru) requires targeted misinformation myth-busting campaigns.",
+        recommendation: "Deploy additional field translation agents in West Bengal (Kolkata Sector V)."
+      });
+    }, 1000);
+  };
+
   return (
     <div>
       <Navbar />
       <main className="page-content" style={{ padding: '2rem', maxWidth: '1600px', margin: '0 auto' }}>
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 flex-wrap gap-3">
           <div>
             <h1>{t('adminTitle')}</h1>
             <p>{t('adminSubtitle')}</p>
           </div>
-          <div>
+          <div className="flex items-center gap-3">
+            <button className="btn-primary" onClick={handleGenerateReport} disabled={isGenerating}>
+              <Sparkles size={18} /> {isGenerating ? 'AI Generating Brief...' : 'AI Executive Report'}
+            </button>
             <span className="badge" style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary-dark)', padding: '0.5rem 1rem', fontSize: '1rem' }}>
               <Activity size={18} className="pulse" /> {t('liveStream')}
             </span>
           </div>
         </div>
+
+        {/* AI Generated Executive Report Box */}
+        {executiveReport && (
+          <div className="card mb-4" style={{ backgroundColor: 'white', border: '2px solid var(--primary-color)' }}>
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-2">
+                <FileText size={20} color="var(--primary-color)" />
+                <h3 style={{ margin: 0 }}>{executiveReport.title}</h3>
+              </div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{executiveReport.timestamp}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', fontSize: '0.9rem' }}>
+              <div style={{ backgroundColor: 'var(--bg-main)', padding: '0.85rem', borderRadius: '8px' }}>
+                <strong style={{ display: 'block', color: 'var(--primary-color)' }}>National Target Completion</strong>
+                <div>{executiveReport.completionPercent} Achieved</div>
+              </div>
+              <div style={{ backgroundColor: 'var(--bg-main)', padding: '0.85rem', borderRadius: '8px' }}>
+                <strong style={{ display: 'block', color: 'var(--secondary-color)' }}>Key Operational Insight</strong>
+                <div>{executiveReport.keyInsight}</div>
+              </div>
+              <div style={{ backgroundColor: 'var(--bg-main)', padding: '0.85rem', borderRadius: '8px' }}>
+                <strong style={{ display: 'block', color: '#b45309' }}>Action Recommendation</strong>
+                <div>{executiveReport.recommendation}</div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
           <StatCard 
@@ -119,7 +166,6 @@ export default function AdminDashboard() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
               
-              {/* State & City Alerts */}
               <div className="card">
                 <h3>Active City & State Alerts</h3>
                 <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
